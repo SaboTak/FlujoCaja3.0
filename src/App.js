@@ -118,17 +118,25 @@ function App() {
 
           {/* /////Barra///// */}
           <div className=" mx-10 mt-40">
-             <ul>
+             <ul id="Barra">
                <li className="float-left	" >
-                  <div className="text-center">
-                    <p className="text-2xl	text-green-600">🠕</p>
+                  <div className="text-center -mt-16  -ml-20">
+                    <p className="text-2xl 	text-green-600">🠕</p>
                     <p>1</p>
                     <button className="bg-black rounded-xl w-6 h-6	"></button>
                     <p>1</p>
                     <p className="text-2xl text-red-800	">🠗</p>
                  </div>
                </li>
-               
+               <li className="float-left" >
+                  <div className="text-center -mt-16 -ml-20">
+                    <p className="text-2xl 	text-green-600">🠕</p>
+                    <p>2</p>
+                    <button className="bg-black rounded-xl w-6 h-6	"></button>
+                    <p>2</p>
+                    <p className="text-2xl text-red-800	">🠗</p>
+                 </div>
+               </li>
              </ul>
           </div>   
           {/* /////////////// */}

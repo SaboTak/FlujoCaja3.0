@@ -24,6 +24,7 @@
   color: white;
 }
 
+
 .App-link {
   color: #61dafb;
 }
@@ -35,4 +36,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+ul li {
+  position: relative;
+  display: inline-block;
+  list-style-type: none;
+  width: 100px;
+  height: 3px;
+  background: #000000;
 }
