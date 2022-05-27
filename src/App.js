@@ -7,9 +7,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 function App() {
 
   var IngresosTotales = [];
-  var valorAnteriorIngresos = [];
   var EgresosTotales = [];
-  var valorAnteriorEgresos = [];
   
   const [Ingreso, setIngreso] = useState();
   const [Egreso, setEgreso] = useState();
@@ -32,8 +30,16 @@ function App() {
     const Ubicacion= event.target[0].value;
     const Valor= event.target[1].value;
     const PeriodoReal= event.target[2].value;
-    
-    EgresosTotales.push({Ubicacion,Valor,PeriodoReal});
+    var valorAnteriorEgresos = [];
+    for(var k = 0; k<EgresosTotales.length; k++){
+      valorAnteriorEgresos.push(EgresosTotales[k]);
+    }
+    // EgresosTotales.push({Ubicacion,Valor,PeriodoReal});
+    valorAnteriorEgresos.push({Ubicacion,Valor,PeriodoReal});
+    for(var o = 0; o<valorAnteriorEgresos.length; o++){
+      EgresosTotales.push(valorAnteriorEgresos[o]);
+    }
+    console.log(valorAnteriorEgresos)
     ListaEgresos();
     console.log(EgresosTotales, "Agregado")
   }
