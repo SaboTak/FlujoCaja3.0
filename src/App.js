@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import { AiOutlineCheck } from "react-icons/ai";
 
@@ -14,7 +13,12 @@ function App() {
   const [itemBarra, setItemBarra] = useState();
   const [itemIngreso, setItemIngreso] = useState();
   const [itemEgreso, setItemEgreso] = useState();
-
+///solucion warning
+  console.log(Ingreso)
+  console.log(setIngreso)
+  console.log(Egreso)
+  console.log(setEgreso)
+  ////
   const addIngreso = (event) => {
     event.preventDefault();
       const Ubicacion= event.target[0].value;
