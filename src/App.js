@@ -5,8 +5,8 @@ import { AiOutlineCheck } from "react-icons/ai";
 
 function App() {
 
-  var IngresosTotales = [];
-  var EgresosTotales = [];
+  var IngresosTotales = [{Ubicacion:2, Valor: 3, PeriodoReal: 1},{Ubicacion:2, Valor: 3, PeriodoReal: 6},{Ubicacion:2, Valor: 5, PeriodoReal: 1}];
+  var EgresosTotales = [{Ubicacion:2, Valor: 3, PeriodoReal: 1},{Ubicacion:2, Valor: 3, PeriodoReal: 6},{Ubicacion:2, Valor: 5, PeriodoReal: 1}];
   
   const [Ingreso, setIngreso] = useState();
   const [Egreso, setEgreso] = useState();
@@ -19,6 +19,21 @@ function App() {
   console.log(Egreso)
   console.log(setEgreso)
   ////
+
+
+  const CargarEgresos = () =>{
+    console.log("entro")
+    for(var g = 0; g>EgresosTotales.length; g++){
+      var egresoSeleccionado = document.getElementById("Egreso-" + g);
+      console.log(egresoSeleccionado)
+      egresoSeleccionado.classList.add("text-red-800");
+      var egresoSeleccionadoPeriodo = document.getElementById("ValorRealC-" + Egreso[g].PeriodoReal);
+      console.log(egresoSeleccionadoPeriodo)
+      egresoSeleccionadoPeriodo.textContent = Egreso[g].Ubicacion
+    }
+  }
+
+
   const addIngreso = (event) => {
     event.preventDefault();
       const Ubicacion= event.target[0].value;
@@ -57,11 +72,11 @@ function App() {
       itemsBarra.push(
               <li id={"Ciclo-" +i} className="float-left	" >
                     <div className="text-center -mt-16  -ml-20">
-                      <p className="text-2xl 	text-green-600 text-white ">🠕</p>
-                      <p>1</p>
+                      <p  id={"Ingreso-" +i} className="text-2xl 	text-green-600 text-white ">🠕</p>
+                      <p id={"ValorRealC-" +i}>1</p>
                       <button className="bg-black rounded-xl w-6 h-6	"></button>
                       <p>{i}</p>
-                      <p className="text-2xl text-red-800	text-white ">🠗</p>
+                      <p id={"Egreso-" +i} className="text-2xl 	text-white  ">🠗</p>
                     </div>
                </li>
       )
@@ -101,6 +116,7 @@ function App() {
     )
     }
     setItemEgreso(itemEgreso);
+    CargarEgresos();
   }
 //   useEffect(() => {
 //     ListaIngresos();
