@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { AiOutlineCheck } from "react-icons/ai";
 
@@ -12,7 +12,7 @@ function App() {
   const [Ingreso, setIngreso] = useState();
   const [Egreso, setEgreso] = useState();
   const [itemBarra, setItemBarra] = useState();
-  const [itemIngreso, setItemIngreso] = useState();
+  const [itemIngreso, setItemIngreso] = useState([]);
   const [itemEgreso, setItemEgreso] = useState();
   ///solucion warning
   // console.log(Ingreso)
@@ -20,6 +20,10 @@ function App() {
   // console.log(Egreso)
   // console.log(setEgreso)
   ////
+  useEffect(() => {
+    ListaIngresos();
+    ListaEgresos();
+  }, [])
 
   const CargarEgresos = () => {
     console.log("entro");
@@ -40,7 +44,7 @@ function App() {
     let comprobacionvalorIngreso = localStorage.getItem("contadorIngreso");
     if (comprobacionvalorIngreso != null) {
       let valorIngreso = parseInt(comprobacionvalorIngreso) + 1;
-      console.log(valorIngreso);
+      //console.log(valorIngreso);
       localStorage.setItem("contadorIngreso", valorIngreso);
     } else {
       let valorIngreso = "1";
@@ -149,11 +153,11 @@ function App() {
     let contador = localStorage.getItem("contadorIngreso");
     contador = parseInt(contador);
     let comprobacion = localStorage.getItem("Ingresos");
-    console.log(comprobacion);
+    //console.log(comprobacion);
 
     for (var j = 0; j < contador; j++) {
       let posUbicacion = comprobacion.indexOf('{"Ubicacion":"');
-      comprobacion = comprobacion.replace('{"Ubicacion":"', "")
+      comprobacion = comprobacion.replace('{"Ubicacion":"', "");
 
       let posValor = comprobacion.indexOf('","Valor":"');
       valUbicacion = comprobacion.substr(posUbicacion, (posValor - posUbicacion));
@@ -167,25 +171,42 @@ function App() {
       valPeriodoReal = comprobacion.substr(posPeriodoReal, (posfinal - posPeriodoReal));
       comprobacion = comprobacion.replace('"}', "");
 
-      itemIngreso.push(
-        <li
-          key={valUbicacion}
-          className=" col-span-3 text-center  grid grid-cols-4 gap-2 py-2"
-        >
-          <label> {valUbicacion} </label>
-          <label> {valValor} </label>
-          <label> {valPeriodoReal} </label>
-          <button
-            type="submit"
-            className="btn bg-green-600 text-white rounded-full  w-7  h-7  text-center text-center mx-10 "
-          >
-            X
-          </button>
-        </li>
+      itemIngreso.push({
+        "valUbicacion": valUbicacion,
+        "valValor": valValor,
+        "valPeriodoReal": valPeriodoReal
+      }
       );
     }
     setItemIngreso(itemIngreso);
   };
+
+  const listadoIngresos = () => {
+    var Ingreso = 
+      <ul>
+        {itemIngreso.map((data) => {
+          return(
+            <li className=" col-span-3 text-center  grid grid-cols-4 gap-2 py-2">
+              <label> {data.valUbicacion} </label>
+              <label> {data.valValor} </label>
+              <label> {data.valPeriodoReal} </label>
+              <button
+                type="submit"
+                className="btn bg-green-600 text-white rounded-full  w-7  h-7  text-center text-center mx-10 "
+                onClick={() => DeleteArray(data.valUbicacion)}
+              >
+                X
+              </button>
+            </li>);
+        })}
+      </ul>
+    //console.log("Ingreso", Ingreso)
+    setIngreso(Ingreso);
+  }
+
+  const DeleteArray = (id) => {
+    console.log(id);
+  }
 
   const ListaEgresos = () => {
     var itemEgreso = [];
@@ -196,7 +217,7 @@ function App() {
     let contador = localStorage.getItem("contadorEgreso");
     contador = parseInt(contador);
     let comprobacion = localStorage.getItem("Egresos");
-    console.log(comprobacion);
+    //console.log(comprobacion);
 
     for (var j = 0; j < contador; j++) {
       let posUbicacion = comprobacion.indexOf('{"Ubicacion":"');
@@ -265,7 +286,7 @@ function App() {
         <div className="border rounded-md p-2">
           <h1 className="bg-green-600 rounded-md text-white p-1">INGRESOS</h1>
           <div>
-            <ul>{itemIngreso}</ul>
+            {Ingreso}
           </div>
           <div className="p-2">
             <form
